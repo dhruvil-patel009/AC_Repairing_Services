@@ -57,13 +57,13 @@ html, body {
 
 }
 
-.left-img {
+.login-img {
   background-image:
     linear-gradient(
       rgba(0, 0, 0, 0.5),   /* overlay color */
       rgba(0, 0, 0, 0.5)
     ),
-    url('https://lh3.googleusercontent.com/aida-public/AB6AXuAGHoYi2V4z-BGduXTWmpk8XShD5pikYoZeEvbpa9CYOJOz3DhqQOiyOZPR8A_xrTMqPXU34jf5WhDlw9N21dqCouozUNTk6C6LM_DZLJWEbYCc9ezjeIGHHir_M7IWppUfjbQyjigBqcEt_jH9_h6I17zmsio7Tjo-ggL-rV0B-lT2GVrCioiEiGvTwO31dXJR5dKL8y0pmEnwzG6TN72x5XxL3dFJskjRx-aD93GqP2PDMS5YW4XZi0MmMRS9JGQi5eLvnhHumhc');
+    url('../../../public/assets/login\ screen.png');
   
   background-size: cover;
   background-position: center;
@@ -245,12 +245,17 @@ html, body {
 }
 
 /* LEFT IMAGE */
-.auth-image {
-  background: url('../../../public/assets/repairing-services.png') center/cover no-repeat;
-  position: relative;
-  color: #fff;
+.otp-img {
+  background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.5),   /* overlay color */
+      rgba(0, 0, 0, 0.5)
+    ),
+    url('../../../public/assets/otpscreen.png');
+  
+  background-size: cover;
+  background-position: center;
 }
-
 .auth-image::before {
   content: '';
   position: absolute;
