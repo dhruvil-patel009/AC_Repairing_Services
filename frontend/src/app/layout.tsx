@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -27,6 +30,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
+        <ToastContainer position="top-right" autoClose={3000} />
+
       </body>
     </html>
   );

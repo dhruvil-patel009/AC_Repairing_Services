@@ -3,15 +3,20 @@
 import { useState } from "react";
 import { ArrowRight } from "react-bootstrap-icons"
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import "../../styles/auth.css";
 
 export default function Page() {
 
   const [phone, setPhone] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
 
   const router = useRouter();
 
+  // digits only (no spaces)
+  const phoneDigits = phone.replace(/\D/g, "");
+  const isValidPhone = phoneDigits.length === 10;
 
   // ✅ format: 123 456 7890 (10 digits total)
   const formatPhone = (value: string): string => {
@@ -30,17 +35,53 @@ export default function Page() {
 
 
 
-const handleLogin = () => {
-  const digits = phone.replace(/\D/g, "");
+  const handleLogin = async () => {
+    const digits = phone.replace(/\D/g, "");
 
-  if (digits.length !== 10) {
-    alert("Please enter a valid 10-digit phone number");
-    return;
-  }
+    if (digits.length !== 10) {
+      toast.error("Please enter a valid 10-digit phone number");
+      return;
+    }
 
-  // 👉 Navigate to OTP page with phone
-  router.push(`otp?phone=${digits}`);
-};
+    try {
+      setLoading(true);
+
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login-phone`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phone: phoneDigits }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.error || "Failed to send OTP");
+        return;
+      }
+
+      // DEV MODE OTP (OPTIONAL)
+      console.log("OTP:", data.otp);
+
+
+      //  ✅ store one-time flag
+sessionStorage.setItem("otp_sent", "true");
+      // ✅ correct redirect
+      router.push(`/auth/otp?phone=${phoneDigits}`);
+    } catch (err) {
+      toast.error("Server error. Please try again.");
+    }
+  };
+
+  // ENTER KEY SUPPORT
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && isValidPhone && !loading) {
+      handleLogin();
+    }
+  };
 
 
 
@@ -50,7 +91,7 @@ const handleLogin = () => {
       <div className="row min-vh-100">
         {/* LEFT IMAGE */}
 
-        <div className="col-lg-6 d-none d-lg-block p-0 position-relative left-panel h-full w-full bg-cover bg-center left-img"  >
+        <div className="col-lg-6 d-none d-lg-block p-0 position-relative left-panel h-full w-full bg-cover bg-center login-img"  >
 
           {/* LOGO TOP */}
           <div className="position-absolute top-0 start-0 p-5 z-10">
@@ -79,53 +120,60 @@ const handleLogin = () => {
             </h1>
             <p className="text-muted mb-5">Enter your mobile number to log in or create an account.</p>
 
-           <div className="mb-4">
-  <label className="form-label fw-semibold mb-2" style={{ fontSize: "14px" }}>
-    Phone Number
-  </label>
+            <div className="mb-4">
+              <label className="form-label fw-semibold mb-2" style={{ fontSize: "14px" }}>
+                Phone Number
+              </label>
 
-  <div
-    className="input-group input-group-lg border rounded-3 overflow-hidden"
-    style={{
-      border: "1px solid #e2e8f0",
-      backgroundColor: "#fff",
-    }}
+              <div
+                className="input-group input-group-lg border rounded-3 overflow-hidden"
+                style={{
+                  border: "1px solid #e2e8f0",
+                  backgroundColor: "#fff",
+                }}
 
-  >
-    <span
-      className="input-group-text border-0 d-flex align-items-center"
-      style={{
-        backgroundColor: "#d3d3d394",
-        paddingLeft: "16px",
-      }}
-    >
-      <span
-        className="material-symbols-outlined"
-        style={{ color: "#94a3b8", fontSize: "20px" }}
-      >
-        call
-      </span>
-    </span>
+              >
+                <span
+                  className="input-group-text border-0 d-flex align-items-center"
+                  style={{
+                    backgroundColor: "#d3d3d394",
+                    paddingLeft: "16px",
+                  }}
+                >
+                  <span
+                    className="material-symbols-outlined"
+                    style={{ color: "#94a3b8", fontSize: "20px" }}
+                  >
+                    call
+                  </span>
+                </span>
 
-    <input
-      type="tel"
-      inputMode="numeric"
-      className="form-control border-0 ps-3"
-      placeholder="123 456 7890"
-      value={phone}
-      onChange={handlePhoneChange}
-      style={{
-        boxShadow: "none",
-      }}
-    />
-  </div>
-</div>
+                <input
+                  type="tel"
+                  inputMode="numeric"
+                  className="form-control border-0 ps-3"
+                  placeholder="123 456 7890"
+                  value={phone}
+                  onChange={handlePhoneChange}
+                  onKeyDown={handleKeyDown}
+                  style={{
+                    boxShadow: "none",
+                  }}
+                />
+              </div>
+            </div>
 
 
-            <button className="login-btn mb-5 w-100 d-flex align-items-center justify-content-center gap-2"   onClick={handleLogin}>
-              Login Securely
+            <button
+              className={`login-btn mb-5 w-100 d-flex align-items-center justify-content-center gap-2 ${!isValidPhone || loading ? "disabled opacity-50" : ""
+                }`}
+              disabled={!isValidPhone || loading}
+              onClick={handleLogin}
+            >
+              {loading ? "Sending OTP..." : "Login Securely"}
               <ArrowRight size={18} />
             </button>
+
 
             {/* DIVIDER */}
 

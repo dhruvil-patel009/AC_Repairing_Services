@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import OtpInput from "react-otp-input";
-import Image from "next/image";
+import { toast } from "react-toastify";
 import {
   ArrowLeft,
   ShieldCheck,
@@ -16,57 +16,106 @@ export default function VerifyOtp() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // ✅ get phone from query
   const phone = searchParams.get("phone");
 
   const [otp, setOtp] = useState("");
-  const [timeLeft, setTimeLeft] = useState(180); // 3 minutes
+  const [timeLeft, setTimeLeft] = useState(180);
+  const [loading, setLoading] = useState(false);
+
+  const isOtpValid = otp.length === 6;
+
+  // 🚫 Direct access protection
+  useEffect(() => {
+    if (!phone) router.replace("/auth/login");
+  }, [phone, router]);
 
 
   useEffect(() => {
-  if (timeLeft <= 0) return;
+  const otpSent = sessionStorage.getItem("otp_sent");
 
-  const timer = setInterval(() => {
-    setTimeLeft((prev) => prev - 1);
-  }, 1000);
-
-  return () => clearInterval(timer);
-}, [timeLeft]);
-
-
-const formatTime = (seconds: number) => {
-  const m = Math.floor(seconds / 60);
-  const s = seconds % 60;
-  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-};
-
-
-  // ❗ if someone opens OTP page directly
-  if (!phone) {
-    router.replace("/");
-    return null;
+  if (otpSent) {
+    toast.success("OTP sent successfully");
+    sessionStorage.removeItem("otp_sent"); // 🔥 important
   }
+}, []);
 
-  const handleVerify = () => {
-    if (otp.length !== 6) {
-      alert("Please enter 6-digit OTP");
-      return;
+
+  // ⏱️ Countdown
+  useEffect(() => {
+    if (timeLeft <= 0) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  };
+
+  // ✅ VERIFY OTP
+  const handleVerify = async () => {
+    if (!isOtpValid || loading) return;
+
+    try {
+      setLoading(true);
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/verify-otp`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phone, otp }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.error || "Invalid OTP");
+        return;
+      }
+
+      // ✅ Save session (DEV MODE)
+      localStorage.setItem("accessToken", data.session.accessToken);
+      localStorage.setItem("refreshToken", data.session.refreshToken);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      toast.success("Login successful");
+
+      // 🔀 Role-based redirect
+      if (data.user.role === "admin") {
+        router.replace("/admin");
+      } else if (data.user.role === "technician") {
+        router.replace("/technician");
+      } else {
+        router.replace("/dashboard");
+      }
+    } catch {
+      toast.error("Server error. Please try again.");
+    } finally {
+      setLoading(false);
     }
+  };
 
-    // 🔐 API call goes here
-    console.log("Phone:", phone);
-    console.log("OTP:", otp);
-
-    // ✅ redirect after success
-    router.push("/dashboard"); // or role-based page
+  // ⌨️ ENTER KEY SUPPORT
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && isOtpValid && !loading) {
+      handleVerify();
+    }
   };
 
   return (
     <div className="container-fluid min-vh-100 p-0">
       <div className="row g-0 min-vh-100">
 
-        {/* LEFT IMAGE SECTION */}
-        <div className="col-lg-6 d-none d-lg-block p-0 position-relative left-panel h-full w-full bg-cover bg-center left-img"  >
+        {/* LEFT IMAGE */}
+
+        <div className="col-lg-6 d-none d-lg-block p-0 position-relative left-panel h-full w-full bg-cover bg-center otp-img"  >
 
           {/* LOGO TOP */}
           <div className="position-absolute top-0 start-0 p-5 z-10">
@@ -94,8 +143,7 @@ const formatTime = (seconds: number) => {
             {/* BACK */}
             <button
               type="button"
-
-  onClick={() => router.replace("login")}
+              onClick={() => router.replace("/auth/login")}
               className="back-link mb-4 d-inline-flex align-items-center btn btn-link p-0"
             >
               <ArrowLeft className="me-2" />
@@ -108,15 +156,6 @@ const formatTime = (seconds: number) => {
               <strong>{phone}</strong>.
             </p>
 
-            <div className="change-number-wrapper">
-              <button
-                className="change-number btn btn-link p-0"
-                onClick={() => router.push("/")}
-              >
-                Change number
-              </button>
-            </div>
-
             <label className="form-label enter-code-label">
               Enter Code
             </label>
@@ -128,7 +167,6 @@ const formatTime = (seconds: number) => {
                 onChange={setOtp}
                 numInputs={6}
                 shouldAutoFocus
-                // containerClassName="otp-container"
                 renderInput={(props, index) => (
                   <input
                     {...props}
@@ -136,41 +174,46 @@ const formatTime = (seconds: number) => {
                     className="otp-input"
                     inputMode="numeric"
                     autoComplete="one-time-code"
+                    onKeyDown={handleKeyDown}
                   />
                 )}
               />
             </div>
 
-<div className="d-flex justify-content-between align-items-center mt-3 small text-muted">
-  <span>
-    Code expires in{" "}
-    <strong>
-      {timeLeft > 0 ? formatTime(timeLeft) : "00:00"}
-    </strong>
-  </span>
+            {/* TIMER + RESEND */}
+            <div className="d-flex justify-content-between align-items-center mt-3 small text-muted">
+              <span>
+                Code expires in{" "}
+                <strong>
+                  {timeLeft > 0 ? formatTime(timeLeft) : "00:00"}
+                </strong>
+              </span>
 
-  <button
-    type="button"
-    className="btn btn-link p-0 text-decoration-none"
-    disabled={timeLeft > 0}
-    onClick={() => {
-      setTimeLeft(180); // reset timer
-      setOtp("");
-      // 🔐 call resend OTP API here
-    }}
-  >
-    <ArrowClockwise className="me-1" />
-    Resend Code
-  </button>
-</div>
+              <button
+                type="button"
+                className="btn btn-link p-0 text-decoration-none"
+                disabled={timeLeft > 0}
+                onClick={() => {
+                  setTimeLeft(180);
+                  setOtp("");
+                  toast.success("OTP resent successfully");
+                  // 🔐 call resend OTP API here
+                }}
+              >
+                <ArrowClockwise className="me-1" />
+                Resend Code
+              </button>
+            </div>
 
-
+            {/* VERIFY BUTTON */}
             <button
-              className="btn btn-primary w-100 mt-4 verify-btn"
+              className={`btn btn-primary w-100 mt-4 verify-btn ${!isOtpValid || loading ? "disabled opacity-50" : ""
+                }`}
+              disabled={!isOtpValid || loading}
               onClick={handleVerify}
             >
-              <ShieldCheck className="me-2" />
-              Verify & Login
+              {loading ? "Verifying..." : "Verify & Login"}
+              <ShieldCheck className="ms-2" />
             </button>
 
             <div className="help-box mt-4">
@@ -184,11 +227,6 @@ const formatTime = (seconds: number) => {
               </div>
             </div>
 
-            <p className="recaptcha-text mt-4">
-              Protected by reCAPTCHA and subject to the Google
-              <a href="#"> Privacy Policy</a> and
-              <a href="#"> Terms of Service</a>.
-            </p>
           </div>
         </div>
 
