@@ -1,178 +1,187 @@
 "use client";
 
-import Image from "next/image";
-import { Telephone, ArrowRight, Person, Wrench } from "react-bootstrap-icons";
+import { useState } from "react";
+import { ArrowRight } from "react-bootstrap-icons"
+import { useRouter } from "next/navigation";
+import "../../styles/auth.css";
 
 export default function Page() {
+
+  const [phone, setPhone] = useState<string>("");
+
+
+  const router = useRouter();
+
+
+  // ✅ format: 123 456 7890 (10 digits total)
+  const formatPhone = (value: string): string => {
+    const digits = value.replace(/\D/g, "").slice(0, 10);
+
+    const part1 = digits.slice(0, 3);
+    const part2 = digits.slice(3, 6);
+    const part3 = digits.slice(6, 10);
+
+    return [part1, part2, part3].filter(Boolean).join(" ");
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(formatPhone(e.target.value));
+  };
+
+
+
+const handleLogin = () => {
+  const digits = phone.replace(/\D/g, "");
+
+  if (digits.length !== 10) {
+    alert("Please enter a valid 10-digit phone number");
+    return;
+  }
+
+  // 👉 Navigate to OTP page with phone
+  router.push(`otp?phone=${digits}`);
+};
+
+
+
+
   return (
     <div className="container-fluid min-vh-100">
       <div className="row min-vh-100">
         {/* LEFT IMAGE */}
-        {/* LEFT IMAGE */}
-        <div className="col-lg-6 d-none d-lg-block p-0 position-relative left-panel">
-          <Image
-            src="/assets/repairing-services.png"
-            alt="HVAC Service"
-            fill
-            priority
-            className="object-fit-cover"
-          />
+
+        <div className="col-lg-6 d-none d-lg-block p-0 position-relative left-panel h-full w-full bg-cover bg-center left-img"  >
 
           {/* LOGO TOP */}
-          <div className="position-absolute top-0 start-0 p-4 text-white fw-bold">
-            HVAC Marketplace
+          <div className="position-absolute top-0 start-0 p-5 z-10">
+            <div className="logo-box d-flex align-items-center gap-3">
+              <div className="size-10 bg-white/20 backdrop-blur-md rounded flex items-center justify-center text-white">
+                <span className="material-symbols-outlined text-2xl">hvac</span>
+              </div>
+              <span className="text-white fw-semibold text-xl font-bold tracking-tight">HVAC Marketplace</span>
+            </div>
           </div>
 
           {/* TEXT BOTTOM */}
-          <div
-            className="position-absolute start-0 ps-5 text-white"
-            style={{ maxWidth: "505px",bottom:'20px' }}
-          >
-            <h2 className="fw-bold mb-3">
-              Professional HVAC solutions
-              <br /> for every season.
-            </h2>
-            <p className="opacity-75 mb-0">
-              Connect with certified technicians, manage service requests, and
-              handle payments all in one place.
+          <div className="position-absolute start-0 bottom-0 p-5 text-white z-10" style={{ maxWidth: "800px" }}>
+            <h1 className="display-5 fw-bold mb-4">Professional HVAC solutions for every season.</h1>
+            <p className="fs-5 opacity-90 mb-0 leading-relaxed">
+              Connect with certified technicians, manage service requests, and handle payments all in one place.
             </p>
           </div>
         </div>
 
         {/* RIGHT CONTENT */}
-        <div className="col-lg-6 d-flex align-items-center justify-content-center bg-white">
-          <div className="login-wrapper w-100" style={{ maxWidth: "380px" }}>
-            <h1 className="welcome-title">Welcome back</h1>
-            <p className="welcome-sub">
-              Enter your mobile number to log in or create an account.
-            </p>
+        <div className="col-lg-6 d-flex align-items-center justify-content-center bg-white p-4">
+          <div className="login-wrapper w-100" style={{ maxWidth: "max-content" }}>
+            <h1 className="fw-bold mb-2 right-title" style={{ fontSize: "32px" }}>
+              Welcome back
+            </h1>
+            <p className="text-muted mb-5">Enter your mobile number to log in or create an account.</p>
 
-            <label className="form-label fw-medium mt-3">Phone Number</label>
+           <div className="mb-4">
+  <label className="form-label fw-semibold mb-2" style={{ fontSize: "14px" }}>
+    Phone Number
+  </label>
 
-            <div className="input-group input-group-lg mb-4">
-              <span className="input-group-text bg-white border-end-0">
-                <Telephone />
-              </span>
-              <input
-                type="text"
-                className="form-control border-start-0"
-                placeholder="(555) 000-0000"
-              />
-            </div>
-
-           {/* ===== NEW TO HVAC MARKETPLACE SECTION ===== */}
-<div style={{ marginTop: '32px' }}>
-
-  {/* Divider */}
   <div
+    className="input-group input-group-lg border rounded-3 overflow-hidden"
     style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: '12px',
-      marginBottom: '24px',
-      color: '#94a3b8',
-      fontSize: '13px'
+      border: "1px solid #e2e8f0",
+      backgroundColor: "#fff",
     }}
+
   >
-    <div style={{ flex: 1, height: '1px', background: '#e6edf5' }} />
-    <span>New to HVAC Marketplace?</span>
-    <div style={{ flex: 1, height: '1px', background: '#e6edf5' }} />
-  </div>
-
-  {/* Cards */}
-  <div className="row g-4">
-    <div className="col-6">
-      <div
-        style={{
-          border: '1px solid #e6edf5',
-          borderRadius: '14px',
-          padding: '24px 16px',
-          textAlign: 'center',
-          background: '#ffffff'
-        }}
+    <span
+      className="input-group-text border-0 d-flex align-items-center"
+      style={{
+        backgroundColor: "#d3d3d394",
+        paddingLeft: "16px",
+      }}
+    >
+      <span
+        className="material-symbols-outlined"
+        style={{ color: "#94a3b8", fontSize: "20px" }}
       >
-        <div
-          style={{
-            width: '44px',
-            height: '44px',
-            borderRadius: '50%',
-            background: '#eef4fb',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 12px'
-          }}
-        >
-          <Person />
-        </div>
+        call
+      </span>
+    </span>
 
-        <div style={{ fontWeight: 600, fontSize: '14px' }}>
-          Join as User
-        </div>
-        <div style={{ fontSize: '12px', color: '#7b8794' }}>
-          Book services
-        </div>
-      </div>
-    </div>
-
-    <div className="col-6">
-      <div
-        style={{
-          border: '1px solid #e6edf5',
-          borderRadius: '14px',
-          padding: '24px 16px',
-          textAlign: 'center',
-          background: '#ffffff'
-        }}
-      >
-        <div
-          style={{
-            width: '44px',
-            height: '44px',
-            borderRadius: '50%',
-            background: '#eef4fb',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 12px'
-          }}
-        >
-          <Wrench />
-        </div>
-
-        <div style={{ fontWeight: 600, fontSize: '14px' }}>
-          Join as Technician
-        </div>
-        <div style={{ fontSize: '12px', color: '#7b8794' }}>
-          Offer services
-        </div>
-      </div>
-    </div>
+    <input
+      type="tel"
+      inputMode="numeric"
+      className="form-control border-0 ps-3"
+      placeholder="123 456 7890"
+      value={phone}
+      onChange={handlePhoneChange}
+      style={{
+        boxShadow: "none",
+      }}
+    />
   </div>
-
-  {/* Terms */}
-  <p
-    style={{
-      marginTop: '28px',
-      fontSize: '12px',
-      color: '#9ca3af',
-      textAlign: 'center',
-      lineHeight: 1.5
-    }}
-  >
-    By continuing, you agree to our
-    <span style={{ color: '#0d3b66', cursor: 'pointer' }}>
-      {' '}Terms of Service
-    </span>{' '}
-    and
-    <span style={{ color: '#0d3b66', cursor: 'pointer' }}>
-      {' '}Privacy Policy
-    </span>.
-  </p>
-
 </div>
 
 
+            <button className="login-btn mb-5 w-100 d-flex align-items-center justify-content-center gap-2"   onClick={handleLogin}>
+              Login Securely
+              <ArrowRight size={18} />
+            </button>
+
+            {/* DIVIDER */}
+
+
+            <div className="d-flex align-items-center py-2 mb-5 justify-content-center">
+              <div className="flex-grow-1 border-top"></div>
+
+              <span className="mx-3 text-muted small fw-medium">
+                New to HVAC Marketplace?
+              </span>
+
+              <div className="flex-grow-1 border-top"></div>
+            </div>
+
+            {/* JOIN CARDS */}
+            <div className="row g-4 mb-5">
+              <div className="col-6">
+                <div className="join-card">
+                  <div className="icon-circle">
+                    <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>person</span>
+                  </div>
+                  <div className="fw-bold mb-1" style={{ fontSize: "15px" }}>
+                    Join as User
+                  </div>
+                  <div className="text-muted" style={{ fontSize: "12px" }}>
+                    Book services
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-6">
+                <div className="join-card">
+                  <div className="icon-circle">
+                    <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>engineering</span>                  </div>
+                  <div className="fw-bold mb-1" style={{ fontSize: "15px" }}>
+                    Join as Technician
+                  </div>
+                  <div className="text-muted" style={{ fontSize: "12px" }}>
+                    Offer services
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* TERMS */}
+            <p className="text-center text-muted-foreground mb-0" style={{ fontSize: "12px", lineHeight: "1.6" }}>
+              By continuing, you agree to our{" "}
+              <span className="text-primary fw-medium cursor-pointer" style={{ color: "#0d3b66" }}>
+                Terms of Service
+              </span>{" "}
+              and{" "}
+              <span className="text-primary fw-medium cursor-pointer" style={{ color: "#0d3b66" }}>
+                Privacy Policy
+              </span>
+              .
+            </p>
           </div>
         </div>
       </div>
