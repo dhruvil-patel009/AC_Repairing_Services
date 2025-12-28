@@ -1,18 +1,16 @@
 import { Response, NextFunction } from "express";
-import { supabase } from "../utils/supabase.js";
 import { AuthRequest } from "./auth.middleware.js";
 
 export const authorize =
-  (role: "user" | "technician" | "admin") =>
-  async (req: AuthRequest, res: Response, next: NextFunction) => {
-    const { data } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", req.user.id)
-      .single();
+  (...allowedRoles: Array<"user" | "technician" | "admin">) =>
+  (req: AuthRequest, res: Response, next: NextFunction) => {
+    if (!req.user || !req.user.role) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
 
-    if (data?.role !== role)
+    if (!allowedRoles.includes(req.user.role)) {
       return res.status(403).json({ error: "Forbidden" });
+    }
 
     next();
   };

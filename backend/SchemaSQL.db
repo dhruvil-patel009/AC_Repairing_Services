@@ -54,3 +54,27 @@ using (auth.uid() = id);
 
 
 
+
+
+
+
+
+
+///////////////////////  Services   ///////////////////
+
+
+create table services (
+  id uuid primary key default gen_random_uuid(),
+  category text not null,
+  sub_category text not null,
+  name text not null,
+  description text,
+  base_price numeric default 0,
+  is_active boolean default true,
+  created_at timestamp with time zone default now()
+);
+
+
+alter table services
+add column image_url text;
+

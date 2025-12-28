@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { supabase } from "../utils/supabase.js";
+import { supabaseAdmin } from "../utils/supabase.js";
 
 const TEMP_OTP = process.env.TEMP_OTP || "123456";
 
@@ -20,7 +20,7 @@ export const register = async (req: Request, res: Response) => {
     } = req.body;
 
     // ✅ Create user WITHOUT password
-    const { data, error } = await supabase.auth.admin.createUser({
+    const { data, error } = await supabaseAdmin.auth.admin.createUser({
       phone,
       email,
       email_confirm: true
@@ -32,7 +32,7 @@ export const register = async (req: Request, res: Response) => {
 
     const userId = data.user.id;
 
-    await supabase.from("profiles").insert({
+    await supabaseAdmin.from("profiles").insert({
       id: userId,
       role,
       first_name: firstName,
@@ -43,7 +43,7 @@ export const register = async (req: Request, res: Response) => {
     });
 
     if (role === "technician") {
-      await supabase.from("technician_details").insert({
+      await supabaseAdmin.from("technician_details").insert({
         id: userId,
         experience_years: experienceYears,
         promo_code: promoCode
@@ -66,7 +66,7 @@ export const loginWithPhone = async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Phone required" });
   }
 
-  const { data } = await supabase
+  const { data } = await supabaseAdmin
     .from("profiles")
     .select("id, role")
     .eq("phone", phone)
@@ -98,7 +98,7 @@ export const verifyPhoneOtp = async (req: Request, res: Response) => {
   }
 
   // Fetch full user profile
-  const { data: profile, error } = await supabase
+  const { data: profile, error } = await supabaseAdmin
     .from("profiles")
     .select(`
       id,
