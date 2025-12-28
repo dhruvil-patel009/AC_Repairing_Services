@@ -1,47 +1,47 @@
-# AC_Repairing_Services
+🛠️ AC Repairing Services
+🚀 Full Stack Web Application
 
-========================================
-        FULL STACK PROJECT README
-========================================
+A modern Full Stack Web Application built for managing AC repairing services, bookings, and operations using Next.js and Node.js (Express).
 
-Project Type:
--------------
-Full Stack Web Application
+📌 Project Overview
 
+Project Type: Full Stack Web Application
 
-Technology Stack:
------------------
-Node.js Version  : 22.18.0
+Architecture: Frontend + Backend (REST APIs)
 
-Frontend:
----------
-Framework       : Next.js (Latest)
-UI Library      : Bootstrap
-Styling         : SCSS / CSS
-Rendering       : App Router (Recommended)
+Environment: Development & Production Ready
 
-Backend:
---------
-Runtime         : Node.js
-Framework       : Express.js
-API Type        : REST APIs
+🧰 Tech Stack
+⚙️ Backend
 
+Runtime: Node.js v22.18.0
 
-========================================
-        PROJECT STRUCTURE
-========================================
+Framework: Express.js
 
+API Type: REST APIs
+
+🎨 Frontend
+
+Framework: Next.js (Latest)
+
+Routing: App Router
+
+UI Library: Bootstrap
+
+Styling: SCSS / CSS (No Tailwind)
+
+📁 Project Structure
 project-root/
 │
-├── frontend/
-|   |__ src/                  # Next.js frontend
-│   |    ├── app/
-│   |    ├── public/
-│   |    ├── styles/
+├── frontend/                  # Next.js Frontend
+│   ├── src/
+│   │   ├── app/
+│   │   ├── public/
+│   │   └── styles/
 │   ├── package.json
 │   └── next.config.js
 │
-├── backend/                # Node.js + Express backend
+├── backend/                   # Node.js + Express Backend
 │   ├── src/
 │   │   ├── routes/
 │   │   ├── controllers/
@@ -51,130 +51,120 @@ project-root/
 │   ├── package.json
 │   └── .env
 │
-└── README.txt
+└── README.md
 
+✅ Requirements
 
-========================================
-        REQUIREMENTS
-========================================
+🟢 Node.js: v22.18.0 (recommended via nvm)
 
-1. Node.js v22.18.0 (via nvm recommended)
-2. npm (comes with Node.js)
-3. Git (optional)
+📦 npm: Comes with Node.js
 
+🧑‍💻 Git: Optional but recommended
 
-========================================
-        NODE VERSION SETUP
-========================================
+🔄 Node Version Setup (nvm)
 
-Check installed versions:
--------------------------
+Check installed Node versions:
+
 nvm ls
 
+
 Use required version:
----------------------
+
 nvm use 22.18.0
 
+
 Verify:
--------
+
 node -v
-(should show v22.18.0)
 
 
-========================================
-        FRONTEND SETUP (Next.js)
-========================================
+✔️ Should output: v22.18.0
 
-1. Go to frontend folder:
--------------------------
+🌐 Frontend Setup (Next.js)
+
+1️⃣ Navigate to frontend directory:
+
 cd frontend
 
-2. Install dependencies:
--------------------------
+
+2️⃣ Install dependencies:
+
 npm install
 
-3. Run development server:
--------------------------
+
+3️⃣ Start development server:
+
 npm run dev
 
-4. Open browser:
-----------------
+
+4️⃣ Open in browser:
+
 http://localhost:3000
 
+🔧 Backend Setup (Express)
 
-========================================
-        BACKEND SETUP (Express)
-========================================
+1️⃣ Navigate to backend directory:
 
-1. Go to backend folder:
-------------------------
 cd backend
 
-2. Install dependencies:
-------------------------
+
+2️⃣ Install dependencies:
+
 npm install
 
-3. Create .env file:
---------------------
+
+3️⃣ Create .env file:
+
 PORT=5000
 
-4. Start backend server:
-------------------------
+
+4️⃣ Start backend server:
+
 npm run dev
+
+
 or
+
 node src/server.js
 
-5. Backend will run on:
------------------------
+
+5️⃣ Backend URL:
+
 http://localhost:5000
 
-
-========================================
-        API CONNECTION
-========================================
-
-Frontend connects to backend using REST APIs.
-
-Example:
---------
-Frontend  → http://localhost:3000  
-Backend   → http://localhost:5000/api
+🔗 API Connection Flow
+Frontend (Next.js) → http://localhost:3000
+Backend  (Express) → http://localhost:5000/api
 
 
-========================================
-        SCRIPTS
-========================================
+Frontend communicates with backend using REST APIs.
 
-Frontend:
----------
-npm run dev     → Start development
-npm run build   → Build for production
-npm run start   → Start production build
+📜 Available Scripts
+🖥️ Frontend
+Command	Description
+npm run dev	Start development server
+npm run build	Build for production
+npm run start	Run production build
+🛠️ Backend
+Command	Description
+npm run dev	Start with nodemon
+npm start	Start production server
+📝 Notes
 
-Backend:
---------
-npm run dev     → Start with nodemon
-npm start       → Start production server
+✅ Bootstrap used for UI components
 
+🎨 Styling via SCSS / CSS
 
-========================================
-        NOTES
-========================================
+🚫 Tailwind CSS not used
 
-- Bootstrap is used for UI components
-- SCSS/CSS is used for styling (No Tailwind)
-- Node.js v22.18.0 is recommended for best stability
-- Restart terminal after switching Node version with nvm
+⚡ Node.js v22.18.0 recommended for stability
 
+🔁 Restart terminal after switching Node versions
 
-========================================
-        AUTHOR
-========================================
+👨‍💻 Author
 
-Developed by: Dhruvil Patel
-Role        : Full Stack Developer
-
-
-========================================
-        END OF FILE
-========================================
+Dhruvil Patel
+🔹 Full Stack Web Developer
+Yashvi Kodak 
+🔹 Frontend Web Developer
+ 
