@@ -109,7 +109,7 @@ html, body {
 }
 
 .form-control {
-  border-radius: 0 8px 8px 0;
+  border-radius: 8px;
 }
 
 .form-control::placeholder {
@@ -218,7 +218,10 @@ html, body {
   font-size: 14px;
 }
 
-
+.form-label{
+  font-weight: 600;
+  font-size: 14px;
+}
 
 /* ================= LEFT BOTTOM TEXT ================= */
 .left-panel .position-absolute.bottom-0 h2 {
@@ -266,7 +269,7 @@ html, body {
 .overlay-content {
   position: relative;
   z-index: 2;
-  padding: 60px;
+  padding: 50px;
   max-width: 520px;
 }
 
@@ -450,4 +453,234 @@ html, body {
   font-weight: 600;
   border-radius: 12px;
   font-size: 16px;
+}
+
+/* Regsiter   */
+body {
+  background: #f4f6f8;
+  font-family: 'Inter', sans-serif;
+}
+
+.logo-circle {
+  width: 28px;
+  height: 28px;
+  background: #0d6efd;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.register-card {
+  max-width: 760px;
+  border-radius: 16px;
+  border: none;
+}
+
+.profile-upload .avatar {
+  width: 96px;
+  height: 96px;
+  background: #eef2f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.profile-upload .edit-icon {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: #0d6efd;
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-title {
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-icon {
+  position: absolute;
+  left: 23px;
+  top: 42px;
+  color: #6c757d;
+}
+
+.input-inside-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  font-size: 16px;
+  pointer-events: none; /* important */
+}
+
+.terms-box {
+  background: #f8f9fb;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 65px;
+}
+
+/* Techician Registration  */
+.max-width {
+          max-width: 1200px;
+        }
+
+        .info-card {
+          background: linear-gradient(
+              rgba(15, 76, 128, 0.85),
+              rgba(15, 76, 128, 0.85)
+            ),
+            url('../../../public/assets/otpscreen.png');
+          background-size: cover;
+          border-radius: 16px;
+          padding: 30px;
+        }
+
+        .info-item {
+          display: flex;
+          gap: 12px;
+          margin-top: 20px;
+        }
+
+        .icon-box {
+          width: 36px;
+          height: 36px;
+          background: rgba(255, 255, 255, 0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 8px;
+        }
+
+        .form-card {
+          border-radius: 16px;
+          padding: 30px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+          font-size: 13px;
+          font-weight: 700;
+          margin-bottom: 12px;
+          /* border-bottom: 1px solid #eee; */
+          padding-bottom: 6px;
+        }
+
+        .input-icon {
+          position: absolute;
+          top: 43px;
+          left: 25px;
+          color: #6c757d;
+        }
+
+        .upload-box {
+          border: 2px dashed #ddd;
+          border-radius: 12px;
+          padding: 30px;
+          text-align: center;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        .upload-box:hover {
+          border-color: #0d6efd;
+          background: #f8fbff;
+        }
+
+        /* CARD WRAPPER */
+.network-card {
+  /* background: #ffffff; */
+  border-radius: 18px;
+  overflow: hidden;
+  /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); */
+}
+
+/* IMAGE SECTION */
+.network-image {
+  height: 230px;
+  background: linear-gradient(
+      rgba(0, 70, 140, 0.65),
+      rgba(0, 70, 140, 0.65)
+    ),
+    url("../../../public/assets/otpscreen.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* TEXT OVER IMAGE */
+.overlay-content {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  color: #fff;
+}
+
+.overlay-content h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.overlay-content p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* FEATURES SECTION */
+.network-features {
+  padding: 20px;
+}
+
+/* FEATURE ROW */
+.feature-item {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.feature-item:last-child {
+  margin-bottom: 0;
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+  background: #eef3f8;
+  color: #0d6efd;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.feature-item h6 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.feature-item p {
+  font-size: 14px;
+  color: #6c757d;
+  margin: 0;
 }
