@@ -1,0 +1,74 @@
+.vp-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.vp-modal {
+  background: #fff;
+  width: 420px;
+  border-radius: 14px;
+  padding: 28px;
+  text-align: center;
+  position: relative;
+}
+
+.vp-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.vp-icon {
+  font-size: 48px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.vp-badge {
+  display: inline-block;
+  background: #ffe3a3;
+  color: #b7791f;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-top: 6px;
+}
+
+.vp-text {
+  color: #555;
+  margin: 14px 0;
+}
+
+.vp-info {
+  background: #f6f8fa;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin: 16px 0;
+}
+
+.vp-btn {
+  width: 100%;
+  background: #0b3c68;
+  color: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 12px;
+}
+
+.vp-logout {
+  background: none;
+  border: none;
+  margin-top: 10px;
+  color: #666;
+}
