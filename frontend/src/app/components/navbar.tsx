@@ -1,10 +1,13 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation";
 import { useState } from "react"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+    const router = useRouter();
+
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top w-100 position-fixed">
@@ -53,8 +56,8 @@ export default function Navbar() {
           </ul>
 
           <div className="d-flex gap-2">
-            <button className="btn btn-outline-primary">Login</button>
-            <button className="btn btn-primary">Sign Up</button>
+            <button className="btn btn-outline-primary"        onClick={() => router.replace("/auth/login")}
+>Login</button>
           </div>
         </div>
       </div>
