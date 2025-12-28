@@ -35,6 +35,7 @@ export default function Page() {
 
 
 
+
   const handleLogin = async () => {
     const digits = phone.replace(/\D/g, "");
 
@@ -190,7 +191,7 @@ sessionStorage.setItem("otp_sent", "true");
 
             {/* JOIN CARDS */}
             <div className="row g-4 mb-5">
-              <div className="col-6">
+              <div className="col-6" onClick={() => router.replace("/auth/register")}>
                 <div className="join-card">
                   <div className="icon-circle">
                     <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>person</span>
@@ -204,7 +205,7 @@ sessionStorage.setItem("otp_sent", "true");
                 </div>
               </div>
 
-              <div className="col-6">
+              <div className="col-6" onClick={() => router.replace("/auth/technician-registration")}>
                 <div className="join-card">
                   <div className="icon-circle">
                     <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>engineering</span>                  </div>

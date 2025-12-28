@@ -19,6 +19,12 @@ export const register = async (req: Request, res: Response) => {
       promoCode
     } = req.body;
 
+
+    if (!phone || !email || !firstName || !lastName) {
+      return res.status(400).json({
+        error: "Missing required fields"
+      });
+    }
     // ✅ Create user WITHOUT password
     const { data, error } = await supabase.auth.admin.createUser({
       phone,
@@ -26,11 +32,40 @@ export const register = async (req: Request, res: Response) => {
       email_confirm: true
     });
 
-    if (error) {
-      return res.status(400).json({ error: error.message });
+    if (error || !data.user) {
+      return res.status(400).json({ error: error?.message });
     }
 
     const userId = data.user.id;
+    let profilePhotoUrl: string | null = null;
+
+    // 2️⃣ Upload profile image (if exists)
+    if (req.file) {
+      const ext = req.file.originalname.split(".").pop();
+      const folder = role === "technician" ? "technicians" : "profiles";
+      const filePath = `${folder}/${userId}.${ext}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("secure-documents")
+        .upload(filePath, req.file.buffer, {
+          contentType: req.file.mimetype,
+          upsert: true
+        });
+
+      if (uploadError) {
+        console.error(uploadError);
+        return res.status(400).json({ error: "Image upload failed" });
+      }
+
+      const { data: publicUrl } = supabase.storage
+        .from("secure-documents")
+        .getPublicUrl(filePath);
+
+      profilePhotoUrl = publicUrl.publicUrl;
+    }
+
+
+    // 3️⃣ Insert profile with photo
 
     await supabase.from("profiles").insert({
       id: userId,
@@ -39,7 +74,9 @@ export const register = async (req: Request, res: Response) => {
       middle_name: middleName,
       last_name: lastName,
       phone,
-      email
+      email,
+      profile_photo: profilePhotoUrl
+
     });
 
     if (role === "technician") {
@@ -50,8 +87,12 @@ export const register = async (req: Request, res: Response) => {
       });
     }
 
-    res.status(201).json({ message: "Registered successfully" });
-  } catch {
+    res.status(201).json({
+      message: "Registered successfully", profilePhoto: profilePhotoUrl
+    });
+  } catch (err) {
+    console.error("REGISTER ERROR:", err);
+
     res.status(500).json({ error: "Server error" });
   }
 };
