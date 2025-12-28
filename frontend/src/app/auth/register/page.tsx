@@ -105,7 +105,7 @@ export default function Register() {
             </div>
 
             {/* PROFILE PHOTO */}
-            <div className="upload-box mb-5 text-center">
+            <div className="upload-box mb-3 text-center">
               <label className="upload-area">
                 {imagePreview ? (
                   <img src={imagePreview} className="avatar-img" />
@@ -135,14 +135,14 @@ export default function Register() {
 
             {/* PERSONAL INFORMATION */}
             <div className="form-section">
-              <h3 className="fs-5 fw-bold text-dark mb-4 d-flex align-items-center gap-2">
+              <h3 className="fs-5 fw-bold text-dark d-flex align-items-center gap-2">
 
                 <span className="material-symbols-outlined text-primary" style={{ fontSize: "26px" }}>badge</span>
                 Personal Information
 
               </h3>
 
-              <div className="row g-3 mt-2">
+              <div className="row g-3">
                 <div className="col-md-4">
                   <label className="form-label">
                     First Name <span className="text-danger">*</span>
@@ -177,14 +177,14 @@ export default function Register() {
             </div>
 
             {/* CONTACT DETAILS */}
-            <div className="form-section mt-4">
-              <h3 className="fs-5 fw-bold text-dark mt-2 mb-4 d-flex align-items-center gap-2">
+            <div className="form-section mt-2">
+              <h3 className="fs-5 fw-bold text-dark d-flex align-items-center gap-2">
                 <span className="material-symbols-outlined text-primary" style={{ fontSize: "26px" }}>contact_mail</span>
                 Contact Details
               </h3>
 
 
-              <div className="row g-3 mt-2">
+              <div className="row g-3">
                 <div className="col-md-6">
                   <label className="form-label">
                     Phone Number <span className="text-danger">*</span>
