@@ -30,29 +30,6 @@ UI Library: Bootstrap
 
 Styling: SCSS / CSS (No Tailwind)
 
-📁 Project Structure
-project-root/
-│
-├── frontend/                  # Next.js Frontend
-│   ├── src/
-│   │   ├── app/
-│   │   ├── public/
-│   │   └── styles/
-│   ├── package.json
-│   └── next.config.js
-│
-├── backend/                   # Node.js + Express Backend
-│   ├── src/
-│   │   ├── routes/
-│   │   ├── controllers/
-│   │   ├── middlewares/
-│   │   ├── config/
-│   │   └── server.js
-│   ├── package.json
-│   └── .env
-│
-└── README.md
-
 ✅ Requirements
 
 🟢 Node.js: v22.18.0 (recommended via nvm)
