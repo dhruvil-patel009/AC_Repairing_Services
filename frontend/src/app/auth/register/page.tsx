@@ -8,27 +8,87 @@ import {
   Envelope,
   Clipboard
 } from 'react-bootstrap-icons';
+import { useRouter } from "next/navigation";
 import '../../styles/auth.css'
+import { useState } from 'react';
+import { toast } from "react-toastify";
+
 
 export default function Register() {
+  const router = useRouter();
+
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: ""
+  });
+
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  // 🔹 Handle text inputs
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  // 🔹 Handle image select
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
+
+  // 🔹 Submit register
+  const handleSubmit = async () => {
+    if (!form.firstName || !form.lastName || !form.phone || !form.email) {
+      toast.error("Please fill all required fields");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("role", "user");
+      formData.append("firstName", form.firstName);
+      formData.append("lastName", form.lastName);
+      formData.append("phone", form.phone);
+      formData.append("email", form.email);
+
+      if (imageFile) {
+        formData.append("profileImage", imageFile); // 👈 MUST MATCH
+      }
+
+      const res =await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/register`, {
+        method: "POST",
+        body: formData
+      });
+
+
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.error || "Registration failed");
+        return;
+      }
+
+      toast.success("Registered successfully ✅");
+      router.push("/auth/login");
+    } catch (err) {
+      console.error(err);
+      toast.error("Server error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="register-page">
-      {/* HEADER */}
-      {/* <header className="border-bottom bg-white">
-        <div className="container py-3 d-flex justify-content-between align-items-center">
-          <div className="fw-bold d-flex align-items-center gap-2">
-            <span className="logo-circle">X</span>
-            HVAC Marketplace
-          </div>
-          <div>
-            <a href="#" className="me-3 text-decoration-none text-muted">
-              Find a Tech
-            </a>
-            <button className="btn btn-primary btn-sm">Sign In</button>
-          </div>
-        </div>
-      </header> */}
-
       {/* FORM CARD */}
       <div className="container my-5">
         <div className="card register-card mx-auto">
@@ -45,102 +105,143 @@ export default function Register() {
             </div>
 
             {/* PROFILE PHOTO */}
-            <div className="profile-upload mb-5 text-center">
-              <div className="avatar mx-auto">
-                <Person size={26} />
-                <span className="edit-icon">
+            <div className="upload-box mb-3 text-center">
+              <label className="upload-area">
+                {imagePreview ? (
+                  <img src={imagePreview} className="avatar-img" />
+                ) : (
+                  <div className="avatar-placeholder">
+                    <Person size={28} />
+                  </div>
+                )}
+
+                <span className="edit-badge">
                   <Pencil size={12} />
                 </span>
-              </div>
-              <p className="mt-2 fw-semibold mb-0">Profile Photo</p>
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  hidden
+                  onChange={handleImageChange}
+                />
+              </label>
+
+              <p className="fw-semibold mt-3 mb-1">Profile Photo</p>
               <small className="text-muted">
-                Upload or drag and drop (Optional)
+                Click to upload or drag and drop (Optional)
               </small>
             </div>
 
-            {/* PERSONAL INFO */}
-            <h6 className="section-title">
-              <Clipboard size={16} /> Personal Information
-            </h6>
+            {/* PERSONAL INFORMATION */}
+            <div className="form-section">
+              <h3 className="fs-5 fw-bold text-dark d-flex align-items-center gap-2">
 
-            <hr></hr>
+                <span className="material-symbols-outlined text-primary" style={{ fontSize: "26px" }}>badge</span>
+                Personal Information
 
-            <div className="row g-3 mb-4">
-              <div className="col-md-6">
-                <label className="form-label fw-600">First Name *</label>
-                <input className="form-control" placeholder="John" />
-              </div>
-              {/* <div className="col-md-2">
-                <label className="form-label">M.I.</label>
-                <input className="form-control text-center" placeholder="-" />
-              </div> */}
-              <div className="col-md-6">
-                <label className="form-label fw-600">Last Name *</label>
-                <input className="form-control" placeholder="Doe" />
+              </h3>
+
+              <div className="row g-3">
+                <div className="col-md-4">
+                  <label className="form-label">
+                    First Name <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    className="form-control"
+                    name="firstName"
+                    placeholder="John"
+                    value={form.firstName}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="col-md-4">
+                  <label className="form-label">Middle Name</label>
+                  <input className="form-control" />
+                </div>
+
+                <div className="col-md-4">
+                  <label className="form-label">
+                    Last Name <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    className="form-control"
+                    name="lastName"
+                    placeholder="Doe"
+                    value={form.lastName}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
             </div>
 
             {/* CONTACT DETAILS */}
-            <h6 className="section-title">
-              <PersonPlus size={16} /> Contact Details
-            </h6>
+            <div className="form-section mt-2">
+              <h3 className="fs-5 fw-bold text-dark d-flex align-items-center gap-2">
+                <span className="material-symbols-outlined text-primary" style={{ fontSize: "26px" }}>contact_mail</span>
+                Contact Details
+              </h3>
 
-            <hr></hr>
 
-            <div className="row g-3 mb-4">
-              {/* PHONE */}
-              <div className="col-md-6">
-                <label className="form-label fw-600">Phone Number *</label>
-                <div className="position-relative">
-                  <Telephone className="input-inside-icon" />
-                  <input
-                    type="text"
-                    className="form-control ps-5"
-                    placeholder="(555) 123-4567"
-                  />
+              <div className="row g-3">
+                <div className="col-md-6">
+                  <label className="form-label">
+                    Phone Number <span className="text-danger">*</span>
+                  </label>
+                  <div className="input-wrapper">
+                    <Telephone />
+                    <input
+                      className="form-control"
+                      placeholder="(555) 123-4567"
+                      name="phone"
+                      value={form.phone}
+                      onChange={handleChange}
+                    />
+                  </div>
                 </div>
-              </div>
 
-              {/* EMAIL */}
-              <div className="col-md-6">
-                <label className="form-label">Email Address *</label>
-                <div className="position-relative">
-                  <Envelope className="input-inside-icon" />
-                  <input
-                    type="email"
-                    className="form-control ps-5"
-                    placeholder="john.doe@example.com"
-                  />
+                <div className="col-md-6">
+                  <label className="form-label">
+                    Email Address <span className="text-danger">*</span>
+                  </label>
+                  <div className="input-wrapper">
+                    <Envelope />
+                    <input
+                      className="form-control"
+                      placeholder="john.doe@example.com"
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* TERMS */}
-            <div className="terms-box mb-4">
-              <div className="form-check">
-                <input className="form-check-input text-center ml-2" type="checkbox" />
-                <label className="form-check-label">
-                  I agree to the <b>Terms</b> and <b>Privacy Policy</b>
-                </label>
-              </div>
-              <small className="text-muted d-block mt-1">
-                By checking this box, you confirm that you have read and agree
-                to our Terms of Service and Privacy Policy.
-              </small>
-            </div>
+            <p className="terms-text mt-4">
+              By registering, you agree to our{" "}
+              <a href="#">Terms of Service</a> and{" "}
+              <a href="#">Privacy Policy</a>.
+            </p>
 
             {/* BUTTON */}
-            <button className="btn btn-primary w-100 py-2 fw-semibold">
-              Create Account
+            <button
+              className="btn btn-primary w-100 mt-3"
+              onClick={handleSubmit}
+              disabled={loading}
+            >
+              {loading ? "Creating Account..." : "Create Account"}
             </button>
 
-            <p className="text-center mt-3 mb-0">
+            <p className="signin-text mt-3">
               Already have an account?{" "}
-              <a href="#" className="fw-semibold text-decoration-none">
-                Sign in
-              </a>
+              <span onClick={() => router.replace("/auth/login")}>Sign in</span>
             </p>
+
           </div>
+
         </div>
       </div>
     </div>
