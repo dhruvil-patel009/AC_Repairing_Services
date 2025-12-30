@@ -93,7 +93,7 @@ export default function VerifyOtp() {
       } else if (data.user.role === "technician") {
         router.replace("/technician");
       } else {
-        router.replace("/dashboard");
+        router.replace("/");
       }
     } catch {
       toast.error("Server error. Please try again.");
