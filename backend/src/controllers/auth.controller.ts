@@ -175,19 +175,23 @@ export const loginWithPhone = async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Phone required" });
   }
 
-  const { data } = await supabase
+  const { data:user } = await supabase
     .from("profiles")
     .select("id, role")
     .eq("phone", phone)
     .single();
 
-  if (!data) {
+  if (!user) {
     return res.status(404).json({ error: "User not registered" });
   }
 
+    const otp = TEMP_OTP; // DEV MODE
+
+
   res.json({
     message: "OTP sent (DEV MODE)",
-    otp: TEMP_OTP  // DEV ONLY
+    otp, 
+    role: user.role
   });
 };
 
@@ -207,7 +211,7 @@ export const verifyPhoneOtp = async (req: Request, res: Response) => {
   }
 
   // Fetch full user profile
-  const { data: profile, error } = await supabase
+  const { data: user , error } = await supabase
     .from("profiles")
     .select(`
       id,
@@ -222,7 +226,7 @@ export const verifyPhoneOtp = async (req: Request, res: Response) => {
     .eq("phone", phone)
     .single();
 
-  if (error || !profile) {
+  if (error || !user ) {
     return res.status(404).json({ error: "User not found" });
   }
 
@@ -234,22 +238,22 @@ export const verifyPhoneOtp = async (req: Request, res: Response) => {
   res.json({
     message: "Login successful (DEV MODE)",
     session: {
-      accessToken: `dev-token-${profile.id}`,
-      refreshToken: `dev-refresh-${profile.id}`,
+      accessToken: `dev-token-${user .id}`,
+      refreshToken: `dev-refresh-${user .id}`,
       tokenType: "bearer",
       issuedAt,
       expiresIn,
       expiresAt
     },
     user: {
-      id: profile.id,
-      role: profile.role,
-      firstName: profile.first_name,
-      middleName: profile.middle_name,
-      lastName: profile.last_name,
-      phone: profile.phone,
-      email: profile.email,
-      createdAt: profile.created_at
+      id: user .id,
+      role: user .role,
+      firstName: user .first_name,
+      middleName: user .middle_name,
+      lastName: user .last_name,
+      phone: user .phone,
+      email: user .email,
+      createdAt: user .created_at
     }
   });
 };
