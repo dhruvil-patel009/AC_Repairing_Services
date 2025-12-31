@@ -89,7 +89,7 @@ export default function VerifyOtp() {
 
       // 🔀 Role-based redirect
       if (data.user.role === "admin") {
-        router.replace("/admin");
+        router.replace("/Admin");
       } else if (data.user.role === "technician") {
         router.replace("/technician");
       } else {
