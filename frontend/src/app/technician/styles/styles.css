@@ -1,0 +1,39 @@
+body {
+  background-color: #f5f7fb;
+  font-family: "Inter", sans-serif;
+}
+
+.card {
+  border-radius: 16px;
+  border: none;
+}
+
+.stat-card {
+  height: 150px;
+}
+
+.dark-card {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+}
+
+.badge-soft {
+  background: #e8edff;
+  color: #3b5bdb;
+}
+
+.progress {
+  height: 6px;
+  border-radius: 10px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #dee2e6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
