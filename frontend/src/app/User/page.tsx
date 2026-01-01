@@ -24,51 +24,14 @@ import {
   ArrowLeft,
 } from "react-bootstrap-icons"
 import './styles/landingpage.css'
+import { useRouter } from "next/navigation";
+import Navbar from "./components/Navbar";
 
 export default function UserLandingPage() {
+    const router = useRouter();
+  
   return (
     <div className="bg-white">
-      {/* Header */}
-      
-      <nav className="navbar navbar-expand-lg navbar-light bg-white py-3 sticky-top">
-        <div className="container">
-          <a className="navbar-brand d-flex align-items-center fw-bold fs-4" href="#">
-            {/* <Snowflake className="text-primary me-2" /> */}
-            Metro Cool
-          </a>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav mx-auto">
-              <li className="nav-item">
-                <a className="nav-link px-3 active" href="#">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link px-3" href="#">
-                  Services
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link px-3" href="#">
-                  About Us
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link px-3" href="#">
-                  Contact
-                </a>
-              </li>
-            </ul>
-            <div className="d-flex gap-2">
-              <button className="btn btn-primary px-4 py-2">Book Now</button>
-              <button className="btn btn-outline-secondary px-4 py-2">Login</button>
-            </div>
-          </div>
-        </div>
-      </nav>
 
       {/* Hero Section */}
       <section className="hero-section">
