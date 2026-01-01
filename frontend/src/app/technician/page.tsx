@@ -1,5 +1,8 @@
-// src/app/technician/page.tsx
+
+import JobCard from "./job/jobcard";
+
 export default function TechnicianDashboard() {
+
   const stats = [
     { title: "Total Earnings", value: "$2,450", trend: "+12% last week", icon: "bi-currency-dollar", color: "text-primary" },
     { title: "Completed Jobs", value: "42", trend: "+4 this week", icon: "bi-check-circle", color: "text-success" },
@@ -53,6 +56,7 @@ export default function TechnicianDashboard() {
         {/* Job Cards Grid */}
         <div className="row g-4">
           <JobCard 
+            id = "MC-121"
             title="AC Repair & Maintenance" 
             client="Sarah Jenkins" 
             time="15 min ago" 
@@ -60,7 +64,8 @@ export default function TechnicianDashboard() {
             schedule="Today, 2:00 PM - 4:00 PM"
             tag="New Request"
           />
-          <JobCard 
+          <JobCard
+            id = "MC-122" 
             title="AC Repair & Maintenance" 
             client="Sarah Jenkins" 
             time="15 min ago" 
@@ -68,7 +73,8 @@ export default function TechnicianDashboard() {
             schedule="Today, 2:00 PM - 4:00 PM"
             tag="New Request"
           />
-          <JobCard 
+          <JobCard
+            id = "MC-123" 
             title="Commercial Plumbing Check" 
             client="TechFlow Inc." 
             time="45 min ago" 
@@ -82,34 +88,3 @@ export default function TechnicianDashboard() {
   );
 }
 
-function JobCard({ title, client, time, address, schedule, tag }: any) {
-  return (
-    <div className="col-12 col-xl-6">
-      <div className="card border-0 shadow-sm h-100">
-        <div className="card-body d-flex flex-column flex-md-row gap-3">
-          <div className="flex-grow-1">
-            <div className="d-flex justify-content-between">
-                <span className="badge bg-primary-subtle text-primary mb-2">{tag}</span>
-                <small className="text-muted d-flex align-middle"><span className="material-symbols-outlined text-text-secondary text-[16px]">schedule</span>{time}</small>
-            </div>
-            <h5 className="fw-bold">{title}</h5>
-            <p className="mb-2 small"><i className="bi bi-person me-2"></i>{client}</p>
-            <p className="mb-2 small text-muted d-flex align-middle"><span className="material-symbols-outlined text-text-secondary text-[18px]">location_on</span>{address}</p>
-            <p className="mb-3 small text-muted d-flex align-middle"><span className="material-symbols-outlined text-text-secondary text-[18px]">calendar_clock</span>
-{schedule}</p>
-<div className="d-flex align-items-center gap-4">
-            <button className="btn btn-primary w-75 fw-bold">View Details</button>
-            <div className="more-btn">
-                        <span className="material-symbols-outlined text-text-secondary text-[18px]">more_vert</span>
-            </div>
-</div>
-
-          </div>
-          <div className="bg-light rounded d-none d-sm-block" style={{ width: '200px', height: '200px', objectFit: 'cover' }}>
-            <div className="h-100 d-flex align-items-center justify-content-center text-muted">Image</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}

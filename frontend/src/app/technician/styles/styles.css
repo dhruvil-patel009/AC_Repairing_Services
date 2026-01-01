@@ -43,3 +43,37 @@ body {
   display: flex;
   cursor: pointer;
 }
+
+
+
+/* src/app/technician/styles/styles.css */
+
+.border-dashed {
+    border-style: dashed !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.card {
+    border-radius: 16px;
+    transition: transform 0.2s ease;
+}
+
+.bg-primary-subtle { background-color: #e7f1ff !important; }
+.bg-warning-subtle { background-color: #fff3cd !important; }
+.bg-success-subtle { background-color: #d1e7dd !important; }
+
+/* Better typography */
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.5px;
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+.leading-relaxed {
+    line-height: 1.6;
+}
