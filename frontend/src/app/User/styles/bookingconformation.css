@@ -1,0 +1,749 @@
+.booking-confirmation {
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  min-height: 100vh;
+  padding: 40px 20px 60px;
+}
+
+/* ========== HEADER ========== */
+.confirmation-header {
+  /* background: white; */
+  /* padding: 60px 20px 50px; */
+  text-align: center;
+  /* border-bottom: 1px solid var(--border); */
+  /* margin-bottom: 50px; */
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); */
+}
+
+.success-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: var(--success);
+  animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.confirmation-title {
+  font-size: clamp(24px, 5vw, 32px);
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.confirmation-subtitle {
+  font-size: 15px;
+  color: var(--text-light);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.confirmation-subtitle strong {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+/* Booking ID */
+.booking-id-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #dbeafe;
+  padding: 12px 20px;
+  border-radius: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.booking-id-label {
+  font-size: 13px;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.booking-id-value {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  font-family: "Courier New", monospace;
+}
+
+.booking-id-copy {
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.booking-id-copy:hover {
+  background: rgba(0, 102, 255, 0.1);
+}
+
+/* ========== CARDS ========== */
+.booking-card,
+.next-steps-card {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+  /* border: 1px solid var(--border); */
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); */
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.card-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dark);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background: var(--bg-light);
+  border-color: var(--text-light);
+  transform: translateY(-1px);
+}
+
+/* ========== SERVICE SECTION ========== */
+.service-section {
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+
+.service-image {
+  width: 100%;
+  max-width: 160px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.badge-verified {
+  display: inline-block;
+  background: #f0fdf4;
+  color: #15803d;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+}
+
+.service-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+  margin-top: 8px;
+}
+
+.provider-name {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.provider-icon {
+  font-size: 16px;
+}
+
+.provider-name strong {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.rating-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.star-filled {
+  color: var(--rating);
+}
+
+.star-half {
+  color: #e5e7eb;
+}
+
+.rating-value {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+/* ========== DETAILS SECTION ========== */
+.details-section {
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+
+.detail-card {
+  padding: 20px;
+  background: var(--bg-light);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.detail-heading {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-light);
+  letter-spacing: 0.8px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.detail-primary {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.detail-secondary {
+  font-size: 13px;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.detail-group {
+  margin-bottom: 0;
+}
+
+.location-address {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.location-city {
+  font-size: 13px;
+  color: var(--text-light);
+  margin: 4px 0 0 0;
+}
+
+/* ========== PAYMENT SECTION ========== */
+.payment-section {
+  padding: 24px;
+  background: var(--bg-light);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.payment-icon {
+  font-size: 28px;
+}
+
+.payment-desc {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.payment-status {
+  font-size: 12px;
+  color: var(--text-light);
+  margin: 2px 0 0 0;
+}
+
+.total-label {
+  font-size: 13px;
+  color: var(--text-light);
+  margin: 0;
+  text-align: right;
+}
+
+.total-price {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 4px 0 0 0;
+  text-align: right;
+}
+
+/* ========== NEXT STEPS ========== */
+.next-steps-card {
+  text-align: center;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 60px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.step-indicator {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.step-indicator.active {
+  background: #f0fdf4;
+  color: var(--success);
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.15);
+}
+
+.step-indicator.pending {
+  background: var(--bg-light);
+  color: var(--text-light);
+}
+
+.step-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+/* ========== BUTTONS ========== */
+.button-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin: 48px 0;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 36px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background: #0052cc;
+  border-color: #0052cc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+}
+
+.btn-outline-dark {
+  background: white;
+  color: var(--text-dark);
+  border-color: var(--border);
+}
+
+.btn-outline-dark:hover {
+  background: var(--bg-light);
+  border-color: var(--text-dark);
+  transform: translateY(-2px);
+}
+
+.btn-lg {
+  min-width: 180px;
+}
+
+/* ========== SUPPORT TEXT ========== */
+.support-text {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-light);
+  margin: 20px 0;
+}
+
+.link-primary {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.link-primary:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+  .booking-confirmation {
+    padding: 24px 16px 40px;
+  }
+
+  .confirmation-header {
+    padding: 40px 16px 32px;
+    margin-bottom: 32px;
+  }
+
+  .confirmation-title {
+    font-size: 24px;
+  }
+
+  .booking-card,
+  .next-steps-card {
+    padding: 24px;
+  }
+
+  .card-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .card-actions {
+    justify-content: flex-start;
+  }
+
+  .service-section {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  .service-image {
+    max-width: 140px;
+  }
+
+  .detail-card {
+    margin-bottom: 0;
+  }
+
+  .steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 100%;
+  }
+
+  .step-indicator {
+    width: 56px;
+    height: 56px;
+  }
+
+  .text-md-end {
+    text-align: left !important;
+  }
+
+  .total-label,
+  .total-price {
+    text-align: left;
+  }
+
+  .button-group {
+    margin: 32px 0;
+    flex-direction: column;
+  }
+
+  .btn-lg {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+@media (max-width: 576px) {
+  .booking-confirmation {
+    padding: 16px 12px 32px;
+  }
+
+  .confirmation-header {
+    padding: 32px 12px 24px;
+    margin-bottom: 24px;
+    border-radius: 8px;
+  }
+
+  .confirmation-title {
+    font-size: 20px;
+  }
+
+  .confirmation-subtitle {
+    font-size: 14px;
+  }
+
+  .booking-id-container {
+    gap: 8px;
+    padding: 10px 16px;
+  }
+
+  .booking-card,
+  .next-steps-card {
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 24px;
+  }
+
+  .card-top {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+
+  .card-actions {
+    gap: 8px;
+    width: 100%;
+  }
+
+  .action-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .service-image {
+    max-width: 120px;
+  }
+
+  .service-name {
+    font-size: 18px;
+  }
+
+  .provider-name {
+    font-size: 13px;
+  }
+
+  .payment-section {
+    padding: 16px;
+    flex-direction: column;
+  }
+
+  .total-price {
+    font-size: 24px;
+  }
+
+  .step-indicator {
+    width: 48px;
+    height: 48px;
+  }
+
+  .step-label {
+    font-size: 12px;
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    max-width: 100%;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 12px;
+    margin: 24px 0;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .btn-lg {
+    min-width: unset;
+  }
+
+  .support-text {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .booking-card,
+  .next-steps-card {
+    padding: 12px;
+  }
+
+  .card-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+
+  .confirmation-title {
+    font-size: 18px;
+  }
+
+  .booking-id-container {
+    gap: 6px;
+    padding: 8px 12px;
+  }
+}
+
+.next-steps-card {
+  background: #f8fbff;
+  border-radius: 14px;
+  padding: 24px 24px 28px;
+  width: 100%;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 22px;
+}
+
+/* wrapper for line positioning */
+.steps-wrapper {
+  position: relative;
+}
+
+/* horizontal line */
+.steps-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 6%;
+  right: 6%;
+  height: 2px;
+  background: #dbe7ff;
+  z-index: 1;
+}
+
+.steps-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.step {
+  text-align: center;
+  flex: 1;
+}
+
+/* circle */
+.step-indicator {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 2px solid #dbe7ff;
+  color: #9bb4e5;
+}
+
+/* active (Booked) */
+.step-indicator.active {
+  background: #0d6efd;
+  border-color: #0d6efd;
+  color: #ffffff;
+}
+
+/* pending icons */
+.step-indicator.pending {
+  background: #ffffff;
+}
+
+/* label */
+.step-label {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.step-label.active {
+  color: #0d6efd;
+  font-weight: 600;
+}
+
+/* responsive */
+@media (max-width: 576px) {
+  .steps-wrapper::before {
+    left: 8%;
+    right: 8%;
+  }
+}
