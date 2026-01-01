@@ -1,39 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+
 body {
-  background-color: #f5f7fb;
-  font-family: "Inter", sans-serif;
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
 }
 
 .card {
-  border-radius: 16px;
-  border: none;
+    border-radius: 12px;
 }
 
-.stat-card {
-  height: 150px;
+.nav-tabs .nav-link {
+    border: none;
+    color: #6c757d;
 }
 
-.dark-card {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  color: white;
+.nav-tabs .nav-link.active {
+    color: #0d6efd !important;
+    border-bottom: 3px solid #0d6efd;
+    background: transparent;
 }
 
-.badge-soft {
-  background: #e8edff;
-  color: #3b5bdb;
+.btn-primary {
+    border-radius: 8px;
+    padding: 10px;
 }
 
-.progress {
-  height: 6px;
-  border-radius: 10px;
+.bg-primary-subtle {
+    background-color: #e7f1ff !important;
 }
 
-.avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #dee2e6;
+.navlogo{
+  width: 15%;
+  height: 15%;
+}
+
+.more-btn{
+  padding: 8px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  color: black;
+  /* background-color: rgb(61, 61, 59); */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
+  cursor: pointer;
 }
