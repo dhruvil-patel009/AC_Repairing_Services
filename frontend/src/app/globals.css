@@ -1,12 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
 
 
-/* Tailwind v4 */
-@import "tailwindcss/preflight";
-@import "tailwindcss/utilities";
-
-
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
