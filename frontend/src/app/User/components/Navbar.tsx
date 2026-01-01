@@ -61,7 +61,7 @@ export default function Navbar() {
           {/* ACTION BUTTONS */}
           <div className="d-flex gap-2">
             <Link
-              href="/"
+              href=""
               className="btn btn-primary px-4 py-2"
             >
               Book Now
