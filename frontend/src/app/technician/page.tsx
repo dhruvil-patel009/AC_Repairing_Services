@@ -1,5 +1,6 @@
 
-import JobCard from "./job/jobcard";
+import JobCard from "./job/JobCard";
+
 
 export default function TechnicianDashboard() {
 
